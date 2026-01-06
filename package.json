@@ -55,5 +55,6 @@
       "prettier-plugin-organize-imports",
       "prettier-plugin-tailwindcss"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.27.0"
 }

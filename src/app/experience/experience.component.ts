@@ -9,28 +9,20 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { beforeRender, extend, getInstanceState, objectEvents } from 'angular-three';
+import { beforeRender, extend } from 'angular-three';
 import { NgtsPerspectiveCamera } from 'angular-three-soba/cameras';
 import { NgtsOrbitControls } from 'angular-three-soba/controls';
 import { BoxGeometry, GridHelper, Mesh, MeshBasicMaterial } from 'three';
 
 @Directive({
   selector: '[cursorPointer]',
+  host: {
+    '(pointerover)': "document.body.style.cursor = 'pointer'",
+    '(pointerout)': "document.body.style.cursor = 'default'",
+  },
 })
 export class CursorPointer {
-  constructor() {
-    const document = inject(DOCUMENT);
-    const hostElement = inject<ElementRef<Mesh>>(ElementRef);
-    const mesh = hostElement.nativeElement;
-
-    const instanceState = getInstanceState(mesh);
-    if (!instanceState) return;
-
-    objectEvents(() => mesh, {
-      pointerover: () => void (document.body.style.cursor = 'pointer'),
-      pointerout: () => void (document.body.style.cursor = 'default'),
-    });
-  }
+  protected document = inject(DOCUMENT);
 }
 
 @Component({
